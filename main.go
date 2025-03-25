@@ -2,12 +2,20 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"strconv"
 	"time"
 )
 
 func main() {
-	duration := 15 * time.Minute
-	fmt.Println("15 minute pomodoro gabut started.")
+	userInput, err := strconv.Atoi(os.Args[1])
+	if err != nil {
+		panic(err)
+	}
+	duration := time.Duration(userInput) * time.Minute
+
+	startText := fmt.Sprintf("%v minute pomodoro gabut started", duration)
+	fmt.Println(startText)
 
 	ticker := time.NewTicker(1 * time.Second)
 	defer ticker.Stop()
